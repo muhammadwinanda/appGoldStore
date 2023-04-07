@@ -1,0 +1,56 @@
+body{
+    background-color: rgb(248, 248, 248);
+    color: rgb(12, 12, 12);
+  }
+  a, h1{
+    text-decoration: none;
+    color: rgb(12, 12, 12);;
+  }
+  .container-fluid{
+    background-color: azure;
+  }
+  ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .logo-list-page-one {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+  }
+
+
+/* setting element */
+  @media screen and (max-width: 900px) {
+    h1, h5{
+      font-size: medium;
+    }
+    div a, div p, li a, .navbar-brand, .link{
+      font-size: small;
+    }
+    .right-one{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    img.logo-list-page-one {
+      size: 20%;
+    }
+    .card-main div:nth-child(2){
+      display: none;
+    }
+    .logo-left{
+      display: none;
+    }
+    .user-view{
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+    }
+    .user-view div{
+      display: block;
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    
+  }

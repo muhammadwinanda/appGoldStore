@@ -1,0 +1,96 @@
+<%- include('../../partials/pageMitra/head.ejs') %>
+
+<!-- perbaiki display laptop dan pc, masih ada yang kosong sisi kiri -->
+<body class="container m-auto text-lg sm:text-2xl font-sans bg-gradient-to-b from-stone-600 via-stone-800 to bg-stone-600 w-full h-screen" style="color: aliceblue; list-style: none;">
+
+    <div class="relative rounded-t-lg round border-4 border-yellow-500 rounded-md">
+        
+           <%- include('../../partials/pageMitra/header.ejs') %>
+            <!-- perbaiki bagian section, menggunakan class inset-0 sudah tapi malah bug -->
+                <!-- pada element section, class top SAYA HAPUS DENGAN SEMENTARA ELEMENT SESUAI POSISI -->
+            <section class="absolute left-2/4  -translate-x-2/4 -translate-y-2/4 transform-gpu z-10 w-4/5 p-2 bg-gray-700 rounded-full border-4 border-gray-500 opacity-70">
+                <div class="relative z-20 report px-3 grid grid-cols-2 inset">
+                    <!-- transaksi -->
+                    <div class="transaksi grid grid-rows-2 gap-3 border-r-2">
+                        <div class="pembelian flex justify-center items-center gap-5">
+                            <div class="logo border-2 border-white w-10 h-10 rounded-full">
+                                <img src="" alt="" class="">
+                            </div>
+                            <div class="keterangan ">
+                                <h2>Pembelian</h2>
+                                <h2>0</h2>
+                            </div>
+                        </div>
+                        <div class="penjualan flex justify-center items-center gap-5">
+                            <div class="logo border-2 border-white w-10 h-10 rounded-full">
+                                <img src="" alt="" class="">
+                            </div>
+                            <div class="keterangan">
+                                <h2>Penjualan</h2>
+                                <h2>0</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end transaksi -->
+    
+                    <!-- nominal -->
+                    <div class="nominal grid grid-rows-2 gap-3 border-l-2">
+                        <div class="pembelian flex justify-center items-center gap-5">
+                            <div class="logo border-2 border-white w-10 h-10 rounded-full">
+                                <img src="" alt="" class="">
+                            </div>
+                            <div class="keterangan">
+                                <h2>Pembelian</h2>
+                                <h2>Rp : 0</h2>
+                            </div>
+                        </div>
+                        <div class="penjualan flex justify-center items-center gap-5">
+                            <div class="logo border-2 border-white w-10 h-10 rounded-full">
+                                <img src="" alt="" class="">
+                            </div>
+                            <div class="keterangan">
+                                <h2>Penjualan</h2>
+                                <h2>Rp : 0</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end nominal -->
+                </div>
+            </section>
+            
+            <main class="w-full pt-32 font-semibold tracking-wider">
+                <div class="">
+                    <!-- cari problem height bawah terlalu panjang -->
+                    <div class="">
+                        <div class="grid grid-cols-2 justify-center">
+                            <div class="grid grid-rows-2 justify-center">
+                                <div class="w-24 h-24 flex items-center rounded-full border-2 border-gray-400 bg-gradient-to-b from-yellow-100 to-yellow-50 opacity-70">
+                                    <div class="m-auto w-14 h-14">
+                                        <img src="/page-mitra/image/mitra/buy-method.png" alt="icon" class="w-14 h-14">
+                                    </div>
+                                </div>
+                                <div class="h-0">
+                                    <h2 class="text-center">Pembelian</h2>
+                                </div>
+                            </div>
+                            <div class="grid grid-rows-2 justify-center">
+                                <div class="w-24 h-24 flex items-center rounded-full border-2 border-gray-400 bg-gradient-to-b from-yellow-100 to-yellow-50 opacity-70">
+                                    <div class="m-auto w-14 h-14">
+                                        <img src="/page-mitra/image/mitra/sell-method.png" alt="icon" class="w-14 h-14">
+                                    </div>
+                                </div>
+                                <div class="h-0">
+                                    <h2 class="text-center ">Penjualan</h2>
+                                </div>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+           <%- include('../../partials/pageMitra/footer.ejs') %>
+    </div>
+</body>
+</html>
+

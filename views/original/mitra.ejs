@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./public/tailwind/style.css">
+    <title>Frond End for AppWeb</title>
+</head>
+
+<!-- perbaiki display laptop dan pc, masih ada yang kosong sisi kiri -->
+<body class="container m-auto text-lg sm:text-2xl font-sans bg-gradient-to-b from-stone-600 via-stone-800 to bg-stone-600 w-full h-screen" style="color: aliceblue; list-style: none;">
+
+    <div class="relative rounded-t-lg round border-4 border-yellow-500 rounded-md">
+        
+        <header class="font-bold tracking-widest-5">
+            <div style="background-image: url(/page-mitra/image/mitra/photo-gold.jpg);" class="bg-cover bg-center py-5 pb-24 relative">
+                <div class="h-full w-full absolute top-0 left-0 bg-gray-400 opacity-20">
+                </div>
+                <div class="relative z-10 grid grid-cols-2 py-5">
+                    <div class="flex items-center pl-10 sm:pl-20">
+                        <h1 class="text-4xl">App Gold Store</h1>
+                    </div>
+                    <div class="refresh flex items-center justify-end pr-10 sm:pr-20">
+                        <button type="submit" class="w-14 h-14 rounded-full opacity-60" name="btnRefresh">
+                            <img src="/page-mitra/image/mitra/refreshNew.png" alt="logoRefresh" class="opacity-70 hover:opacity-50">
+                        </button>
+                    </div>
+                </div>
+                <div class="relative z-10 grid grid-cols-2 justify-items-center rounded-full py-2">
+                    <div class="grid grid-rows-2 items-center">
+                        <li class="text-ellipsis overflow-hidden"><%= username %></li>
+                        <li class=""><%= absen %></li>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-24 h-24 border-2 rounded-full">
+                            <button type="submit">
+                                <a href="/">
+                                <img src="/page-mitra/image/mitra/user.png" alt="icon-user" class="bg-contain opacity-75">    
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+            <!-- perbaiki bagian section, menggunakan class inset-0 sudah tapi malah bug -->
+                <!-- pada element section, class top SAYA HAPUS DENGAN SEMENTARA ELEMENT SESUAI POSISI -->
+            <section class="absolute left-2/4  -translate-x-2/4 -translate-y-2/4 transform-gpu z-10 w-4/5 p-2 bg-gray-700 rounded-full border-4 border-gray-500 opacity-70">
+                <div class="relative z-20 report px-3 grid grid-cols-2 inset">
+                    <!-- transaksi -->
+                    <div class="transaksi grid grid-rows-2 gap-3 border-r-2">
+                        <div class="pembelian flex justify-center items-center gap-5">
+                            <div class="logo border-2 border-white w-10 h-10 rounded-full">
+                                <img src="" alt="" class="">
+                            </div>
+                            <div class="keterangan ">
+                                <h2>Pembelian</h2>
+                                <h2>0</h2>
+                            </div>
+                        </div>
+                        <div class="penjualan flex justify-center items-center gap-5">
+                            <div class="logo border-2 border-white w-10 h-10 rounded-full">
+                                <img src="" alt="" class="">
+                            </div>
+                            <div class="keterangan">
+                                <h2>Penjualan</h2>
+                                <h2>0</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end transaksi -->
+    
+                    <!-- nominal -->
+                    <div class="nominal grid grid-rows-2 gap-3 border-l-2">
+                        <div class="pembelian flex justify-center items-center gap-5">
+                            <div class="logo border-2 border-white w-10 h-10 rounded-full">
+                                <img src="" alt="" class="">
+                            </div>
+                            <div class="keterangan">
+                                <h2>Pembelian</h2>
+                                <h2>Rp : 0</h2>
+                            </div>
+                        </div>
+                        <div class="penjualan flex justify-center items-center gap-5">
+                            <div class="logo border-2 border-white w-10 h-10 rounded-full">
+                                <img src="" alt="" class="">
+                            </div>
+                            <div class="keterangan">
+                                <h2>Penjualan</h2>
+                                <h2>Rp : 0</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end nominal -->
+                </div>
+            </section>
+            
+            <main class="w-full pt-32 font-semibold tracking-wider">
+                <div class="">
+                    <!-- cari problem height bawah terlalu panjang -->
+                    <div class="">
+                        <div class="grid grid-cols-2 justify-center">
+                            <div class="grid grid-rows-2 justify-center">
+                                <div class="w-24 h-24 flex items-center rounded-full border-2 border-gray-400 bg-gradient-to-b from-yellow-100 to-yellow-50 opacity-70">
+                                    <div class="m-auto w-14 h-14">
+                                        <img src="./image/mitra/buy-method.png" alt="icon" class="w-14 h-14">
+                                    </div>
+                                </div>
+                                <div class="h-0">
+                                    <h2 class="text-center ">Pembelian</h2>
+                                </div>
+                            </div>
+                            <div class="grid grid-rows-2 justify-center">
+                                <div class="w-24 h-24 flex items-center rounded-full border-2 border-gray-400 bg-gradient-to-b from-yellow-100 to-yellow-50 opacity-70">
+                                    <div class="m-auto w-14 h-14">
+                                        <img src="./image/mitra/sell-method.png" alt="icon" class="w-14 h-14">
+                                    </div>
+                                </div>
+                                <div class="h-0">
+                                    <h2 class="text-center ">Penjualan</h2>
+                                </div>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="">
+                <div class="grid grid-cols-2 justify-items-center">
+                    <div class="grid justify-items-center">
+                        <button class="">
+                            <img src="/page-mitra/image/mitra/icons8-house-48.png" alt="home">
+                        </button>
+                        <h6>home</h6>
+                    </div>
+                    <div class="grid justify-items-center">
+                        <button>
+                            <img src="/page-mitra/image/mitra/icons8-shopping-bag-48.png" alt="bag-transaction">
+                        </button>
+                        <h6>transaction</h6>
+                    </div>
+                </div>
+            </footer>
+    </div>
+</body>
+</html>
+

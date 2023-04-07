@@ -4,6 +4,7 @@ const router = express.Router();
 const session = require('express-session');
 const cookieParser = require('cookie-parser')
 const flash = require('connect-flash');
+const path = require('path');
 
 app.use(cookieParser('secret'));
 app.use(session({
@@ -15,76 +16,142 @@ app.use(session({
 );
 app.use(flash());
 
-const {body} = require('express-validator');
+const bodyParser = require('body-parser');
 
-const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(express.json());
 
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended : true}));
+
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
+app.use('/page-admin', express.static(path.join(__dirname + '/node_modules/startbootstrap-sb-admin-2')));
+app.use('/page-mitra', express.static(path.join(__dirname + '/public')));
 app.use(express.urlencoded({ extended:true }));
 
-const {checkData, checkDataNew, addData, updateData, checkDataName, updateTrxFromUser} = require('./public/js/javascript.js');
+const indexRouter = require('./routes/index'); //masih dipakai, karna tidak ad validasi dari file app.js. kedepan, admin dan mitra harus bisa di routes
+const adminRouter = require('./routes/admin');
+const mitraRouter = require('./routes/mitra');
 
-router.get('/', (req, res)=>{
-  res.render('index', {
-    info : req.flash('info'),
-    success : req.flash('success')
-  });
-});
+app.use('/', indexRouter);
+app.use('/admin', adminRouter);
+app.use('/mitra', mitraRouter);
 
-router.post('/login', (req, res)=>{
-  const waktu = new Date().toLocaleString();
-  const status = 'active';
-  const check = checkData(req.body.username, req.body.password);
-  const hapus = checkData(req.body.username, req.body.password);
-  if (!check) {
-    req.flash('info', 'account not found');
-    return res.redirect(302,'/');
-  } else if(check.status === 'not active') {
-    req.flash('info', 'Your account has closed the transaction');
-    return res.redirect(302, '/');
-  } else {
-    check.waktu = waktu;
-    check.status = status;
-    updateData(hapus); 
-    addData(check);
-    req.flash('usr', req.body.username);
-    res.render('admin', {
-      usernameLogin : req.flash('usr')
-    }); 
+const {checkData, checkDataNew, addData, updateData, checkDataName, updateTrxFromUser, loadData} = require('./public/data/controller/users.js');
+
+require('./config/database');
+const {dataUsers} = require('./models/users');
+const {dataTransaction} = require('./models/transactions');
+
+const moment = require('moment');
+
+app.post('/login', async(req, res)=>{
+  try{
+    const {username, password} = req.body;
+    const check = await dataUsers.findOne({username: username});
+    if(!check){
+      // block code, Object not found
+      req.flash('info', 'account not found');
+      res.redirect('/');
+      return;
+    }
+    if (check.password === password) {
+      // block code, success validasi username & password
+      const hari = moment().format('DD/MM/YYYY');
+      const waktu = moment().format('H:m:s');
+      const status = 'active';
+      // validasi dari user yang login, jika hari sama saat login, maka absen waktu jangan ditambahkan atau di simpan.
+      if (check.absenHari === hari) {
+        check.absenWaktu = null;
+      } else {
+        check.keterangan = status;
+        check.absenHari = hari;
+        check.absenWaktu = waktu;
+        await check.save();
+      }
+      // kode validasi di atas masih salah
+        if (check.level === 'admin') {
+          res.cookie('getUsername', req.body.username);
+          res.redirect('/admin/dashboard'); //root dari folder controllers
+        } else {
+          res.cookie('getUsername', req.body.username);
+          req.flash('usr', req.body.username);
+          res.redirect('/mitra/dashboard'); //root dari folder controllers
+        }
+    } else {
+      // block code, password not found for Object.username
+      req.flash('info', 'account not found');
+      res.redirect('/');
+      return;
+    } 
+  } catch (err) {
+    console.log("server error", err);
+    res.redirect('/');
+    return;
   }
 });
 
-router.get('/tutup-laporan/:username', (req,res)=>{
+app.get('/tutup-laporan/:username', async (req,res)=>{
+  // buat kode, tutup laporan dengan validasi mongodb
   const closeTransaction = new Date().toLocaleString();
-  const account = checkDataName(req.params.username);
+  const urlUsername = req.params.username;
+  const account = await dataUsers.find({$and: [{username: urlUsername}, {level: "mitra"}] });
   if (!account) {
     res.status(404);
     res.send('<h1> Page Not Found </h1>');
-  } else {
-    const change = Object(account);
-    change.status = 'not active';
-    change.closeTransaction = closeTransaction;
-    updateTrxFromUser(change);
-    res.redirect('/');
+    return
   }
+  const change = Object(account);
+  change.status = 'not active';
+  change.closeTransaction = closeTransaction;
+  updateTrxFromUser(change);  
+  res.redirect('/');
+
+  // const closeTransaction = new Date().toLocaleString();
+  // const account = checkDataName(req.params.username);
+  // if (!account) {
+  //   res.status(404);
+  //   res.send('<h1> Page Not Found </h1>');
+  // } else {
+  //   if (account.level === 'mitra') {
+  //     const change = Object(account);
+  //     change.status = 'not active';
+  //     change.closeTransaction = closeTransaction;
+  //     updateTrxFromUser(change);  
+  //   }
+  //   res.redirect('/');
+  // }
 })
 
-router.post('/add', (req, res) =>{
-  const check = checkDataNew(req.body.username, req.body.email);
-  if (check !== undefined) {
-    req.flash('info', 'account already registered');
-    res.redirect(302, '/');
-    return;
-  } else {
-    addData(req.body);
-    req.flash('success', 'the account add successfull');
-    res.redirect('/');
-    return;
-  }  
+app.post('/add', (req, res) =>{
+  const listUser = new dataUsers({
+    username: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    level: req.body.level
   });
+  const searchUsername = req.body.username;
+  const searchEmail = req.body.email;
+  dataUsers.findOne({$or: [{username: searchUsername},{email: searchEmail}] }, (err, result)=>{
+    // process searching user from MongoDb
+    if(err) throw err;
+    if (result){
+      req.flash('info', 'account already registered');
+      res.redirect(302, '/');
+    } else {
+      //save data with mongodb use library Mongoose
+      listUser.save().then((success)=>{
+        req.flash('success', 'the account add successfull');
+        return res.redirect('/');
+      // end
+      }).catch((err)=>{
+        console.log('gagal simpan', err);
+      });
+    }
+  });  
+});
 
 app.use('/', router, (req, res)=>{
   res.status(404);

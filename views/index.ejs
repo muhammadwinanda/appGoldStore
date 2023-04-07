@@ -17,7 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
-    <title>Hello, world!</title>
+    <title>App Web</title>
   </head>
   <body>
     <main>
@@ -41,7 +41,7 @@
                     </script>
                   <% } %>  
                   <input placeholder="Username" type="text" id="username" name="username" class="input" required="">
-                  <input placeholder="Password" type="text" id="password" name="password" class="input" required="">
+                  <input placeholder="Password" type="password" id="password" name="password" class="input" required="">
                   <button class="btnlogin" id="submitLogin" type="submit">
                     <span class="text">Submit</span>
                   </button>
@@ -79,6 +79,10 @@
                   <input placeholder="Email" type="email" id="email" name="email" class="input" required >
                   <input placeholder="Password" type="password" id="pass" name="password" class="input" minlength="6" maxlength="20" required >
                   <input placeholder="Confir Password" type="password" id="confirPass" class="input" required >
+                  <input placeholder="Level" type="text" id="level" name="level" class="input" required style="display: none;" value="mitra" >
+                  <div id="alert" class="alert alert-warning" role="alert" style="display: none;">
+                    Password tidak cocok
+                  </div>
                   <button type="submit">
                     <span class="text">Submit</span>
                   </button>
@@ -111,5 +115,17 @@
       document.querySelector('.col button').removeAttribute('disabled');
       document.querySelector('.col_signup button').setAttribute('disabled','');
     }
+    
+    const password1 = document.getElementById('pass');
+    const password2 = document.getElementById('confirPass');
+    const alert = document.getElementById('alert');
+    password2.addEventListener('change', ()=>{
+      if (password1.value !== "" && password1.value !== password2.value) {
+        alert.style.display = 'block';
+      } else {
+        alert.style.display = 'none';
+      }
+    });
+    
   </script>
 </html>

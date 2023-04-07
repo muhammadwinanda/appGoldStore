@@ -1,0 +1,56 @@
+// Metode query JSON
+  // const usersLoad = loadData();
+  // const userFilter = usersLoad.filter(user=> user.waktu === new Date().toLocaleDateString() && user.level !== 'admin');
+  // const twoValues = userFilter.map(obj => ({username: obj.username, email: obj.email}));
+  // kode diatas tidak dipakai lagi.
+
+  // const nowDate = new Date().toLocaleDateString();
+  // dataUsers.find({$and: [{waktu: nowDate}, {level: {$ne: "admin"} }] }).lean()
+  // .then((users)=>{
+  //   const twoValues = users.map(obj => ({username: obj.username, email: obj.email}));
+  //   res.render('admin', {
+  //     userActive : twoValues,
+  //     username : req.cookies.getUsername
+  //   });
+  // }).catch((err)=>{
+  //   console.log('no active users',err);
+  // });
+  // kode sementara tidak dipakai, karna pembaruan page admin
+
+  // validasi with db=JSON
+  // const check = checkData(req.body.username, req.body.password);
+  // const hapus = checkData(req.body.username, req.body.password);
+  // if (!check) {
+  //   req.flash('info', 'account not found');
+  //   return res.redirect(302,'/');
+  // } else if(check.status === 'not active') {
+  //   req.flash('info', 'Your account has closed the transaction');
+  //   return res.redirect(302, '/');
+  // } else {
+  //   check.waktu = waktu;
+  //   check.status = status;
+  //   updateData(hapus); 
+  //   addData(check);
+  //   if (check.level === 'admin') {
+  //     res.cookie('getUsername', req.body.username);
+  //     res.redirect('/admin');  
+  //   } else {
+  //     res.cookie('getUsername', req.body.username);
+  //     req.flash('usr', req.body.username);
+  //     res.redirect('/mitra');
+  //   }
+  // }
+
+
+  // kode dibawah ini dengan JSON
+  // const check = checkDataNew(req.body.username, req.body.email);
+  // if (check !== undefined) {
+  //   req.flash('info', 'account already registered');
+  //   res.redirect(302, '/');
+  //   return;
+  // } else {
+  //   addData(req.body);
+  //   req.flash('success', 'the account add successfull');
+  //   res.redirect('/');
+  //   return;
+  // }

@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "dev": "npx tailwind -i ./public/tailwind/configTailwind.css -o ./public/tailwind/style.css --watch",
+    "tailwind:css": "postcss ./public/tailwind/configTailwind.css -o ./public/tailwind/style.css"
+  },
   "dependencies": {
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.6",
@@ -6,6 +10,16 @@
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "express-validator": "^6.14.3",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "jsdom": "^21.1.0",
+    "moment": "^2.29.4",
+    "mongodb": "^5.0.1",
+    "mongoose": "^6.9.2",
+    "startbootstrap-sb-admin-2": "^4.1.4"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.7"
   }
 }
